@@ -5,6 +5,8 @@ import { FetchOld } from "./pages/FetchOld.tsx";
 import { FetchRQ } from "./pages/FetchRQ.tsx";
 import { Trial } from "./pages/Trial.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QuickStart } from "./pages/QuickStart.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
         path: "trial",
         element: <Trial />,
       },
+      {
+        path: "quickstart",
+        element: <QuickStart />,
+      },
     ],
   },
 ]);
@@ -35,6 +41,7 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

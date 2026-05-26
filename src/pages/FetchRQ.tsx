@@ -20,6 +20,10 @@ export const FetchRQ = () => {
   } = useQuery<Post[], Error>({
     queryKey: ["posts"],
     queryFn: getPosts,
+    //gcTime: 1000 * 5, // Garbage collection time for the cached data (optional)
+    staleTime: 10000, // Time before the data is considered stale (optional)
+    refetchInterval: 15000, // Refetch data every 15 seconds when window active (optional)
+    refetchIntervalInBackground: true, // Continue refetching even when the window is not active (optional)
   });
 
   if (isLoading) return <div className="text-white m-5">Loading...</div>;
