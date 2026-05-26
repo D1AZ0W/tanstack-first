@@ -7,6 +7,7 @@ import { Trial } from "./pages/Trial.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QuickStart } from "./pages/QuickStart.tsx";
+import { FetchIndv } from "./components/UI/FetchIndv.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "quickstart",
         element: <QuickStart />,
+      },
+      {
+        path: "new/:id",
+        element: <FetchIndv />,
       },
     ],
   },

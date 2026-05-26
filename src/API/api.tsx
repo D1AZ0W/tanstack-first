@@ -14,3 +14,7 @@ const api = axios.create({
 export const fetchPosts = () => {
   return api.get<Post[]>("/posts");
 };
+
+export const fetchPostById = (id: number) => {
+  return api.get<Post>(`/posts/${id}`);
+};

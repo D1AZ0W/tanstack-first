@@ -37,4 +37,7 @@
   a {
     @apply hover:underline;
   }
+  div {
+    @apply text-lg text-white;
+  }
 }
