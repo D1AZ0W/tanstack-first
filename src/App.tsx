@@ -4,6 +4,7 @@ import { Home } from "./pages/Home.tsx";
 import { FetchOld } from "./pages/FetchOld.tsx";
 import { FetchRQ } from "./pages/FetchRQ.tsx";
 import { Trial } from "./pages/Trial.tsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,12 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => {
-  return <RouterProvider router={router} />;
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 };
 
 export default App;
