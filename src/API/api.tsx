@@ -40,3 +40,16 @@ export const deletePost = (id: number) => {
 export const updatePost = (id: number, updatedTitle: string) => {
   return api.patch(`/posts/${id}`, { title: updatedTitle });
 };
+
+//infinite scroll
+export const fetchUsers = async ({ pageParam = 1 }) => {
+  try {
+    const res = await axios.get(
+      `https://api.github.com/users?per_page=10&page=${pageParam}`,
+    );
+    return res.status === 200 ? res.data : [];
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return [];
+  }
+};

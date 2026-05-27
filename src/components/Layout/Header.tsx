@@ -16,6 +16,9 @@ export const Header = () => {
         <NavLink to="/new" className="px-2 m-2 text-xl sm:text-lg">
           FetchRQ
         </NavLink>
+        <NavLink to="/infinite" className="px-2 m-2 text-xl sm:text-lg">
+          Infinite Scroll
+        </NavLink>
         <NavLink to="/quickstart" className="px-2 m-2 text-xl sm:text-lg">
           QuickStart
         </NavLink>

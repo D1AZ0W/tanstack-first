@@ -8,6 +8,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QuickStart } from "./pages/QuickStart.tsx";
 import { FetchIndv } from "./components/UI/FetchIndv.tsx";
+import { Infinite } from "./pages/Infinite.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "new/:id",
         element: <FetchIndv />,
+      },
+      {
+        path: "infinite",
+        element: <Infinite />,
       },
     ],
   },
