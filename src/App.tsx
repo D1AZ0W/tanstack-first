@@ -3,7 +3,6 @@ import MainLayout from "./components/Layout/MainLayout.tsx";
 import { Home } from "./pages/Home.tsx";
 import { FetchOld } from "./pages/FetchOld.tsx";
 import { FetchRQ } from "./pages/FetchRQ.tsx";
-import { Trial } from "./pages/Trial.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QuickStart } from "./pages/QuickStart.tsx";
@@ -25,10 +24,6 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: <FetchRQ />,
-      },
-      {
-        path: "trial",
-        element: <Trial />,
       },
       {
         path: "quickstart",

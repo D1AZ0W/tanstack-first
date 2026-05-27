@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUsers } from "../API/api";
 import { useEffect } from "react";
-import { InView, useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 export const Infinite = () => {
   const {
     data,

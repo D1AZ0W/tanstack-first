@@ -30,6 +30,7 @@ export const FetchRQ = () => {
     mutationFn: (id: number) => deletePost(id),
     onSuccess: (data, id) => {
       queryClient.setQueryData(["posts", pageNumber], (post: Post[]) => {
+        console.log(data);
         return post?.filter((p) => p.id !== id);
       });
     },
