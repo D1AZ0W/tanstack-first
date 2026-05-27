@@ -30,3 +30,13 @@ export const fetchPostById = async (id: number) => {
     return {} as Post;
   }
 };
+
+//delete post
+export const deletePost = (id: number) => {
+  return api.delete(`/posts/${id}`);
+};
+
+//update post title
+export const updatePost = (id: number, updatedTitle: string) => {
+  return api.patch(`/posts/${id}`, { title: updatedTitle });
+};

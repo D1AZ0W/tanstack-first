@@ -1,11 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchPosts, type Post } from "../API/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchPosts, type Post, deletePost, updatePost } from "../API/api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
 
 export const FetchRQ = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const [updatedTitle, setUpdatedTitle] = useState("");
+
+  const queryClient = useQueryClient();
 
   const {
     data = [],
@@ -16,12 +19,41 @@ export const FetchRQ = () => {
     queryKey: ["posts", pageNumber],
     queryFn: () => fetchPosts(pageNumber),
     //gcTime: 1000 * 5, // Garbage collection time for the cached data (optional)
-    // staleTime: 10000, // Time before the data is considered stale (optional)
-    // refetchInterval: 15000, // Refetch data every 15 seconds when window active (optional)
-    // refetchIntervalInBackground: true, // Continue refetching even when the window is not active (optional)
+    staleTime: 10000, // Time before the data is considered stale (optional)
+    refetchInterval: 15000, // Refetch data every 15 seconds when window active (optional)
+    refetchIntervalInBackground: true, // Continue refetching even when the window is not active (optional)
     placeholderData: keepPreviousData,
   });
 
+  //mutation function to delete post
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deletePost(id),
+    onSuccess: (data, id) => {
+      queryClient.setQueryData(["posts", pageNumber], (post: Post[]) => {
+        return post?.filter((p) => p.id !== id);
+      });
+    },
+  });
+
+  //mutation function to update the title of the post
+  const updateMutation = useMutation({
+    mutationFn: (id: number) => updatePost(id, updatedTitle),
+    onSuccess: (apiData, id) => {
+      queryClient.setQueryData(["posts", pageNumber], (post: Post[]) => {
+        return post?.map((p) => {
+          return p.id === id ? { ...p, title: apiData.data.title } : p;
+        });
+      });
+    },
+  });
+
+  function updateButtonHandler(id: number) {
+    const newTitle = prompt("Enter new title:");
+    if (newTitle) {
+      setUpdatedTitle(newTitle);
+      updateMutation.mutate(id);
+    }
+  }
   if (isLoading) return <div className="text-white m-5">Loading...</div>;
 
   if (isError)
@@ -44,6 +76,18 @@ export const FetchRQ = () => {
                 <p className="text-sm text-gray-500">ID: {id}</p>
                 <p className="text-gray-300">{body}</p>
               </NavLink>
+              <button
+                onClick={() => deleteMutation.mutate(id)}
+                className="p-5 mt-5 bg-cyan-300 hover:bg-red-500 text-black rounded-lg font-bold"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => updateButtonHandler(id)}
+                className="p-5 mt-5 ml-5 bg-cyan-300 hover:bg-green-500 text-black rounded-lg font-bold"
+              >
+                Update
+              </button>
             </li>
           );
         })}

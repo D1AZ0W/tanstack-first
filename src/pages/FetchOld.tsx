@@ -5,10 +5,8 @@ export const FetchOld = () => {
 
   const getPostData = async () => {
     try {
-      const res = await fetchPosts();
-      if (res.status === 200) {
-        setposts(res.data);
-      }
+      const res = await fetchPosts(1);
+      setposts(res);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
