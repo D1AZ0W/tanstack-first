@@ -5,19 +5,9 @@ import { NavLink, useParams } from "react-router-dom";
 export const FetchIndv = () => {
   const id = Number(useParams().id);
 
-  const fetchPostId = async (): Promise<Post> => {
-    try {
-      const res = await fetchPostById(id);
-      return res.status === 200 ? res.data : ({} as Post);
-    } catch (error) {
-      console.error("Error fetching post:", error);
-      return {} as Post;
-    }
-  };
-
   const { data, isLoading, isError, error } = useQuery<Post, Error>({
     queryKey: ["post", id],
-    queryFn: fetchPostId,
+    queryFn: () => fetchPostById(id),
     staleTime: 10000,
   });
 
